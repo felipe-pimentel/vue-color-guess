@@ -1,22 +1,21 @@
 <template>
   <h1>Color Guess</h1>
-  <button @click="generateColorList">new colors</button>
-  <div class="color-options">
-    <Color v-for="curColor in colorList" :key="curColor" :color="curColor"/>
-  </div>
+  <button v-if="!hasStarted" @click="startGame">new colors</button>
+  <ColorOptions v-else :colorList="colorList" @answer="newColors" />
 </template>
 
 <script>
-import Color from './components/Color.vue'
+import ColorOptions from './components/ColorOptions.vue'
 
 export default {
   name: 'App',
   components: {
-    Color,
+    ColorOptions,
   },
   data() {
     return {
       colorList: [],
+      hasStarted: false
     }
   },
   methods: {
@@ -31,9 +30,13 @@ export default {
       }
       console.log(this.colorList)
     },
-  },
-  mounted() {
-    this.generateColorList()
+    startGame() {
+      this.generateColorList()
+      this.hasStarted = true
+    },
+    newColors() {
+      this.generateColorList()
+    }
   },
 }
 </script>
@@ -46,14 +49,5 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 3.75rem;
-  }
-  .color-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 20rem;
-    width: 20rem;
-    gap: 0.5rem;
-    margin: 2rem auto;
   }
 </style>
