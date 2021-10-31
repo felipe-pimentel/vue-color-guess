@@ -1,6 +1,6 @@
 <template>
   <h1>Color Guess</h1>
-  <button v-if="!hasStarted" @click="startGame">new colors</button>
+  <button v-if="!hasStarted" @click="startGame">START</button>
   <ColorOptions v-else :colorList="colorList" @answer="newColors" />
 </template>
 
@@ -28,7 +28,6 @@ export default {
         const color = `rgb(${colorValue()}, ${colorValue()}, ${colorValue()})`
         this.colorList[i] = color
       }
-      console.log(this.colorList)
     },
     startGame() {
       this.generateColorList()
